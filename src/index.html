@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bài tập về mảng</title>
+    <!-- MY CSS  -->
+    <link rel="stylesheet" href="./css/output.css" />
+  </head>
+  <body>
+    <h1 class="my-6 text-4xl text-indigo-600 font-bold text-center">
+      Bài tập js buổi 6 - Xuân - BC77
+    </h1>
+    <!-- Tạo mảng -->
+    <section class="area">
+      <div class="container">
+        <h1>Tạo mảng</h1>
+        <label for="">Nhập số n</label>
+        <input
+          id="number"
+          type="number"
+          placeholder="nhập số muốn thêm vào mảng"
+          class="inputDecor"
+        />
+        <button onclick="handleAddNumber()" class="btn2">Thêm số</button>
+        <div
+          class="mt-1 h-16 bg-orange-300 rounded-md p-4 text-white font-semibold text-xl"
+        >
+          <p class="left-72 relative">
+            Array number: <span id="addNumberResult"></span>
+          </p>
+        </div>
+        <p
+          class="bg-orange-300 text-white font-semibold p-4 rounded-md text-xl fixed top-96 left-96"
+        >
+          Array number: <span id="addNumberResult2"></span>
+        </p>
+      </div>
+    </section>
+    <!-- Chọn chức năng -->
+    <section class="area">
+      <div class="container">
+        <h1 class="mb-9">Chọn chức năng muốn thực hiện</h1>
+        <div
+          id="accordion-color"
+          data-accordion="collapse"
+          data-active-classes="bg-blue-100 dark:bg-gray-800 text-blue-600 dark:text-white"
+        >
+          <!-- Câu 1. Tổng số dương -->
+          <h2 id="accordion-color-heading-1">
+            <button
+              type="button"
+              class="buttonDecor"
+              data-accordion-target="#accordion-color-body-1"
+              aria-expanded="false"
+              aria-controls="accordion-color-body-1"
+            >
+              <span>[ 1 ] Tổng số dương</span>
+              <svg
+                data-accordion-icon
+                class="w-3 h-3 rotate-180 shrink-0"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 10 6"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 5 5 1 1 5"
+                />
+              </svg>
+            </button>
+          </h2>
+          <!-- Phần nội dung câu hỏi 1 -->
+          <div
+            id="accordion-color-body-1"
+            class="hidden"
+            aria-labelledby="accordion-color-heading-1"
+          >
+            <div class="contentDecor">
+              <button class="btn2" onclick="sumNumber()">Tính tổng</button>
+              <p class="showResult">👉 <span id="sumNumberResult"></span></p>
+            </div>
+          </div>
+
+          <!-- Câu 2. Đếm số dương -->
+          <h2 id="accordion-color-heading-2">
+            <button
+              type="button"
+              class="buttonDecor"
+              data-accordion-target="#accordion-color-body-2"
+              aria-expanded="false"
+              aria-controls="accordion-color-body-2"
+            >
+              <span>[ 2 ] Đếm số dương</span>
+              <svg
+                data-accordion-icon
+                class="w-3 h-3 rotate-180 shrink-0"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 10 6"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 5 5 1 1 5"
+                />
+              </svg>
+            </button>
+          </h2>
+          <!-- Phần nội dung câu hỏi 2 -->
+          <div
+            id="accordion-color-body-2"
+            class="hidden"
+            aria-labelledby="accordion-color-heading-2"
+          >
+            <div class="contentDecor">
+              <button class="btn2" onclick="countNumber()">Đếm số</button>
+              <p class="showResult">👉 <span id="countNumberResult"></span></p>
+            </div>
+          </div>
+
+          <!-- Câu 3. Tìm số nhỏ nhất -->
+          <h2 id="accordion-color-heading-3">
+            <button
+              type="button"
+              class="buttonDecor"
+              data-accordion-target="#accordion-color-body-3"
+              aria-expanded="false"
+              aria-controls="accordion-color-body-3"
+            >
+              <span>[ 3 ] Tìm số nhỏ nhất</span>
+              <svg
+                data-accordion-icon
+                class="w-3 h-3 rotate-180 shrink-0"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 10 6"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 5 5 1 1 5"
+                />
+              </svg>
+            </button>
+          </h2>
+          <!-- Phần nội dung câu hỏi 3 -->
+          <div
+            id="accordion-color-body-3"
+            class="hidden"
+            aria-labelledby="accordion-color-heading-3"
+          >
+            <div class="contentDecor">
+              <button class="btn2" onclick="minNumber()">
+                Tìm số nhỏ nhất
+              </button>
+              <p class="showResult">👉 <span id="minNumberResult"></span></p>
+            </div>
+          </div>
+
+          <!-- Câu 4. Tìm số dương nhỏ nhất -->
+          <h2 id="accordion-color-heading-4">
+            <button
+              type="button"
+              class="buttonDecor"
+              data-accordion-target="#accordion-color-body-4"
+              aria-expanded="false"
+              aria-controls="accordion-color-body-4"
+            >
+              <span>[ 4 ] Tìm số dương nhỏ nhất</span>
+              <svg
+                data-accordion-icon
+                class="w-3 h-3 rotate-180 shrink-0"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 10 6"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 5 5 1 1 5"
+                />
+              </svg>
+            </button>
+          </h2>
+          <!-- Phần nội dung câu hỏi 4 -->
+          <div
+            id="accordion-color-body-4"
+            class="hidden"
+            aria-labelledby="accordion-color-heading-4"
+          >
+            <div class="contentDecor">
+              <button class="btn2" onclick="minPositiveNumber()">
+                Tìm số dương nhỏ nhất
+              </button>
+              <p class="showResult">
+                👉 <span id="minPositiveNumberResult"></span>
+              </p>
+            </div>
+          </div>
+
+          <!-- Câu 5. Tìm số chẵn cuối cùng -->
+          <h2 id="accordion-color-heading-5">
+            <button
+              type="button"
+              class="buttonDecor"
+              data-accordion-target="#accordion-color-body-5"
+              aria-expanded="false"
+              aria-controls="accordion-color-body-5"
+            >
+              <span>[ 5 ] Tìm số chẵn cuối cùng</span>
+              <svg
+                data-accordion-icon
+                class="w-3 h-3 rotate-180 shrink-0"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 10 6"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 5 5 1 1 5"
+                />
+              </svg>
+            </button>
+          </h2>
+          <!-- Phần nội dung câu hỏi 5 -->
+          <div
+            id="accordion-color-body-5"
+            class="hidden"
+            aria-labelledby="accordion-color-heading-5"
+          >
+            <div class="contentDecor">
+              <p>
+                Tìm số chẵn cuối cùng trong mảng. Nếu mảng không có giá trị chẵn
+                thì hệ thống sẽ trả về -1.
+              </p>
+              <button class="btn2" onclick="lastEvenNumber()">
+                Tìm số chẵn
+              </button>
+              <p class="showResult">
+                👉 <span id="lastEvenNumberResult"></span>
+              </p>
+            </div>
+          </div>
+
+          <!-- Câu 6. Đổi chỗ  -->
+          <h2 id="accordion-color-heading-6">
+            <button
+              type="button"
+              class="buttonDecor"
+              data-accordion-target="#accordion-color-body-6"
+              aria-expanded="false"
+              aria-controls="accordion-color-body-6"
+            >
+              <span>[ 6 ] Đổi chỗ</span>
+              <svg
+                data-accordion-icon
+                class="w-3 h-3 rotate-180 shrink-0"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 10 6"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 5 5 1 1 5"
+                />
+              </svg>
+            </button>
+          </h2>
+          <!-- Phần nội dung câu hỏi 6 -->
+          <div
+            id="accordion-color-body-6"
+            class="hidden"
+            aria-labelledby="accordion-color-heading-6"
+          >
+            <div class="contentDecor">
+              <p class="mb-3">
+                Nhập vào 2 vị trí mà bạn muốn đổi giá trị cho nhau. Hệ thống sẽ
+                in ra mảng mới chứa 2 phần tử đã được đổi chỗ (không ảnh hưởng
+                đến mảng gốc).
+                <br /><b>Lưu ý:</b>
+                vị trí này chính là index (bắt đầu từ 0).
+              </p>
+              <p class="text-purple-500">
+                <b>Ví dụ:</b> Mảng ban đầu: <b>[6,2,6,9,5,8]</b>. Vị trí muốn
+                đổi thứ nhất: <b>2</b>, vị trí muốn đổi thứ hai: <b>3</b>. Mảng
+                mới sau khi đổi vị trí: <b>[6,2,9,6,5,8]</b>.
+              </p>
+              <input
+                id="index1"
+                type="number"
+                placeholder="nhập vị trí thứ nhất"
+                class="inputDecor2"
+              />
+              <input
+                id="index2"
+                type="number"
+                placeholder="nhập vị trí thứ hai"
+                class="inputDecor2"
+              />
+
+              <button class="btn2" onclick="changePosition()">Đổi chỗ</button>
+              <p class="showResult">
+                👉 <span id="changePositionResult"></span>
+              </p>
+            </div>
+          </div>
+
+          <!-- Câu 7. Sắp xếp tăng dần -->
+          <h2 id="accordion-color-heading-7">
+            <button
+              type="button"
+              class="buttonDecor"
+              data-accordion-target="#accordion-color-body-7"
+              aria-expanded="false"
+              aria-controls="accordion-color-body-7"
+            >
+              <span>[ 7 ] Sắp xếp tăng dần</span>
+              <svg
+                data-accordion-icon
+                class="w-3 h-3 rotate-180 shrink-0"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 10 6"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 5 5 1 1 5"
+                />
+              </svg>
+            </button>
+          </h2>
+          <!-- Phần nội dung câu hỏi 7 -->
+          <div
+            id="accordion-color-body-7"
+            class="hidden"
+            aria-labelledby="accordion-color-heading-7"
+          >
+            <div class="contentDecor">
+              <button class="btn2" onclick="sortNumber()">Sắp xếp</button>
+              <p class="showResult">👉 <span id="sortNumberResult"></span></p>
+            </div>
+          </div>
+
+          <!-- Câu 8. Tìm số nguyên đầu tiên -->
+          <h2 id="accordion-color-heading-8">
+            <button
+              type="button"
+              class="buttonDecor"
+              data-accordion-target="#accordion-color-body-8"
+              aria-expanded="false"
+              aria-controls="accordion-color-body-8"
+            >
+              <span>[ 8 ] Tìm số nguyên tố đầu tiên</span>
+              <svg
+                data-accordion-icon
+                class="w-3 h-3 rotate-180 shrink-0"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 10 6"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 5 5 1 1 5"
+                />
+              </svg>
+            </button>
+          </h2>
+          <!-- Phần nội dung câu hỏi 8 -->
+          <div
+            id="accordion-color-body-8"
+            class="hidden"
+            aria-labelledby="accordion-color-heading-8"
+          >
+            <div class="contentDecor">
+              <p>
+                Tìm số nguyên tố đầu tiên trong mảng (số nguyên tố là số chỉ
+                chia hết cho chính nó). Nếu mảng không có số nguyên tố thì hệ
+                thống sẽ trả về –1.
+              </p>
+              <button class="btn2" onclick="firstInteger()">
+                Tìm số nguyên tố
+              </button>
+              <p class="showResult">👉 <span id="firstIntegerResult"></span></p>
+            </div>
+          </div>
+
+          <!-- Câu 9. Đếm số nguyên -->
+          <h2 id="accordion-color-heading-9">
+            <button
+              type="button"
+              class="buttonDecor"
+              data-accordion-target="#accordion-color-body-9"
+              aria-expanded="false"
+              aria-controls="accordion-color-body-9"
+            >
+              <span>[ 9 ] Đếm số nguyên</span>
+              <svg
+                data-accordion-icon
+                class="w-3 h-3 rotate-180 shrink-0"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 10 6"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 5 5 1 1 5"
+                />
+              </svg>
+            </button>
+          </h2>
+          <!-- Phần nội dung câu hỏi 9 -->
+          <div
+            id="accordion-color-body-9"
+            class="hidden"
+            aria-labelledby="accordion-color-heading-9"
+          >
+            <div class="contentDecor">
+              <p>
+                Nhập thêm 1 mảng số thực, tìm xem trong mảng có bao nhiêu số
+                nguyên? Mảng này không được dùng để tính toán các câu khác.
+              </p>
+              <input
+                id="numberEx9"
+                type="number"
+                placeholder="Nhập số"
+                class="inputDecor2"
+              />
+              <button class="btn2" onclick="addNumber()">Thêm số</button>
+              <p class="showResult">👉 <span id="addNumberResultEx9"></span></p>
+              <button class="btn2" onclick="countInteger()">
+                Đếm số nguyên
+              </button>
+              <p class="showResult">👉 <span id="countIntegerResult"></span></p>
+            </div>
+          </div>
+
+          <!-- Câu 10. So sánh số lượng số âm và dương -->
+          <h2 id="accordion-color-heading-10">
+            <button
+              type="button"
+              class="buttonDecor"
+              data-accordion-target="#accordion-color-body-10"
+              aria-expanded="false"
+              aria-controls="accordion-color-body-10"
+            >
+              <span>[ 10 ] So sánh số lượng số âm và dương</span>
+              <svg
+                data-accordion-icon
+                class="w-3 h-3 rotate-180 shrink-0"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 10 6"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 5 5 1 1 5"
+                />
+              </svg>
+            </button>
+          </h2>
+          <!-- Phần nội dung câu hỏi 10 -->
+          <div
+            id="accordion-color-body-10"
+            class="hidden"
+            aria-labelledby="accordion-color-heading-10"
+          >
+            <div class="contentDecor">
+              <p>
+                So sánh số lượng số dương và số lượng số âm trong mảng xem số
+                nào nhiều hơn.
+              </p>
+              <button class="btn2" onclick="compare()">So sánh</button>
+              <p class="showResult">👉 <span id="compareResult"></span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MY JS  -->
+    <script src="./js/main.js"></script>
+    <!-- FLOWBITE  -->
+    <script src="../node_modules/flowbite/dist/flowbite.js"></script>
+  </body>
+</html>
