@@ -15,26 +15,25 @@
     <section class="area">
       <div class="container">
         <h1>Tạo mảng</h1>
+        <p class="text-indigo-600 text-lg my-3">
+          <b>Hướng dẫn:</b> Có thể nhập từng số n hoặc nhập nhiều số cùng lúc
+          (cách nhau bằng dấu phẩy). Ví dụ: 4,5,6.7,7,-9...
+        </p>
         <label for="">Nhập số n</label>
         <input
           id="number"
-          type="number"
+          type="text"
           placeholder="nhập số muốn thêm vào mảng"
           class="inputDecor"
         />
         <button onclick="handleAddNumber()" class="btn2">Thêm số</button>
-        <div
-          class="mt-1 h-16 bg-orange-300 rounded-md p-4 text-white font-semibold text-xl"
-        >
-          <p class="left-72 relative">
-            Array number: <span id="addNumberResult"></span>
-          </p>
-        </div>
-        <p
-          class="bg-orange-300 text-white font-semibold p-4 rounded-md text-xl fixed top-96 left-96"
-        >
-          Array number: <span id="addNumberResult2"></span>
+        <p id="mainResult" class="showResult2">
+          Array number: <span id="inputNumberArrayResult"></span>
         </p>
+        <!-- Khi #mainResult không còn nằm trong viewport, div sticky sẽ xuất hiện ở đầu màn hình -->
+        <div id="sticky" class="stickyStyle showResult2 hidden">
+          <p>Array number: <span id="inputNumberArrayResult2"></span></p>
+        </div>
       </div>
     </section>
     <!-- Chọn chức năng -->
@@ -404,8 +403,7 @@
             <div class="contentDecor">
               <p>
                 Tìm số nguyên tố đầu tiên trong mảng (số nguyên tố là số chỉ
-                chia hết cho chính nó). Nếu mảng không có số nguyên tố thì hệ
-                thống sẽ trả về –1.
+                chia hết cho 1 và chính nó).
               </p>
               <button class="btn2" onclick="firstInteger()">
                 Tìm số nguyên tố
@@ -460,7 +458,7 @@
                 class="inputDecor2"
               />
               <button class="btn2" onclick="addNumber()">Thêm số</button>
-              <p class="showResult">👉 <span id="addNumberResultEx9"></span></p>
+              <p class="showResult">👉 <span id="newArrayResultEx9"></span></p>
               <button class="btn2" onclick="countInteger()">
                 Đếm số nguyên
               </button>

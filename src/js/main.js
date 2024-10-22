@@ -1,21 +1,54 @@
 // COMMON FUNCTION
 const getElement = (selector) => document.querySelector(selector);
 
+function positiveNumberArray(arrayNumber) {
+  let result = [];
+  for (i = 0; i < arrayNumber.length; i++) {
+    if (arrayNumber[i] > 0) {
+      result.push(arrayNumber[i]);
+    }
+  }
+  return result;
+}
+
+const REGEX_NUMBER = /^[-0-9.,]*$/;
 // Tạo mảng
-let addNumberResult = [];
+let inputNumberArray = [];
 const handleAddNumber = () => {
-  let number = getElement("#number").value * 1;
-  addNumberResult.push(number);
-  getElement("#addNumberResult").innerHTML = `[ ${addNumberResult} ]`;
-  getElement("#addNumberResult2").innerHTML = `[ ${addNumberResult} ]`;
+  let numberString = getElement("#number").value;
+  if (!REGEX_NUMBER.test(numberString)) {
+    getElement(
+      "#inputNumberArrayResult"
+    ).innerHTML = `<span class="text-red-500 font-bold">Nội dung bạn nhập không phải là số.Vui lòng xem hướng dẫn và nhập lại!</span>`;
+  } else {
+    let numberArray = numberString.split(",").map(Number);
+    inputNumberArray = inputNumberArray.concat(numberArray);
+    getElement("#inputNumberArrayResult").innerHTML = `[ ${inputNumberArray} ]`;
+    getElement(
+      "#inputNumberArrayResult2"
+    ).innerHTML = `[ ${inputNumberArray} ]`;
+  }
 };
+
+// catch viewport
+const resultDiv = getElement("#mainResult");
+const stickyDiv = getElement("#sticky");
+
+window.addEventListener("scroll", () => {
+  const rect = resultDiv.getBoundingClientRect();
+  if (rect.bottom < 0) {
+    stickyDiv.classList.remove("hidden");
+  } else {
+    stickyDiv.classList.add("hidden");
+  }
+});
 
 // 1. Tổng số dương
 const sumNumber = () => {
   let result = 0;
-  for (i = 0; i < addNumberResult.length; i++) {
-    if (addNumberResult[i] > 0) {
-      result += addNumberResult[i];
+  for (i = 0; i < inputNumberArray.length; i++) {
+    if (inputNumberArray[i] > 0) {
+      result += inputNumberArray[i];
     }
   }
   getElement(
@@ -25,23 +58,18 @@ const sumNumber = () => {
 
 // 2. Đếm số dương
 const countNumber = () => {
-  let result = 0;
-  for (i = 0; i < addNumberResult.length; i++) {
-    if (addNumberResult[i] > 0) {
-      result++;
-    }
-  }
+  let positiveNumbers = positiveNumberArray(inputNumberArray);
   getElement(
     "#countNumberResult"
-  ).innerHTML = `Có: <span class="text-indigo-600 font-bold">${result}</span> số dương trong mảng`;
+  ).innerHTML = `Có: <span class="text-indigo-600 font-bold">${positiveNumbers.length}</span> số dương trong mảng`;
 };
 
 // 3. Tìm số nhỏ nhất
 const minNumber = () => {
-  let min = addNumberResult[0];
-  for (i = 0; i < addNumberResult.length; i++) {
-    if (addNumberResult[i] < min) {
-      min = addNumberResult[i];
+  let min = inputNumberArray[0];
+  for (i = 0; i < inputNumberArray.length; i++) {
+    if (inputNumberArray[i] < min) {
+      min = inputNumberArray[i];
     }
   }
   getElement(
@@ -51,34 +79,26 @@ const minNumber = () => {
 
 // 4. Tìm số dương nhỏ nhất
 const minPositiveNumber = () => {
-  let positiveNumber = [];
-  for (i = 0; i < addNumberResult.length; i++) {
-    if (addNumberResult[i] > 0) {
-      positiveNumber.push(addNumberResult[i]);
-    }
-  }
+  let positiveNumber = positiveNumberArray(inputNumberArray);
   if (positiveNumber.length === 0) {
     getElement("#minPositiveNumberResult").innerHTML =
       "Không có số dương trong mảng. ";
   } else {
-    let min = positiveNumber[0];
-    for (i = 0; i < positiveNumber.length; i++) {
-      if (positiveNumber[i] < min) {
-        min = positiveNumber[i];
-      }
-    }
+    let min = positiveNumber.sort(function (pt2, pt1) {
+      return pt2 - pt1;
+    });
     getElement(
       "#minPositiveNumberResult"
-    ).innerHTML = `Số dương nhỏ nhất trong mảng là: <span class="text-indigo-600 font-bold">${min}</span> `;
+    ).innerHTML = `Số dương nhỏ nhất trong mảng là: <span class="text-indigo-600 font-bold">${min[0]}</span> `;
   }
 };
 
 // 5. Tìm số chẵn cuối cùng
 const lastEvenNumber = () => {
   let evenNumber = -1;
-  for (i = addNumberResult.length - 1; i >= 0; i--) {
-    if (addNumberResult[i] % 2 === 0) {
-      evenNumber = addNumberResult[i];
+  for (i = inputNumberArray.length - 1; i >= 0; i--) {
+    if (inputNumberArray[i] % 2 === 0) {
+      evenNumber = inputNumberArray[i];
       break;
     }
   }
@@ -89,25 +109,27 @@ const lastEvenNumber = () => {
 
 // 6. Đổi chỗ
 const changePosition = () => {
-  let newArrayEx6 = [...addNumberResult];
-  // get index
+  let newArrayEx6 = [...inputNumberArray];
   let index1 = getElement("#index1").value * 1;
   let index2 = getElement("#index2").value * 1;
-  // get value
-  let valueIndex1 = newArrayEx6[index1];
-  let valueIndex2 = newArrayEx6[index2];
-  // change value
-  newArrayEx6[index1] = valueIndex2;
-  newArrayEx6[index2] = valueIndex1;
-  getElement(
-    "#changePositionResult"
-  ).innerHTML = `Mảng sau khi đổi: <span class="text-indigo-600 font-bold">[ ${newArrayEx6} ]</span> `;
+  if (index1 >= newArrayEx6.length || index2 >= newArrayEx6.length) {
+    getElement("#changePositionResult").innerHTML =
+      "Vị trí bạn nhập không có trong mảng. Vui lòng nhập lại!";
+  } else {
+    let valueIndex1 = newArrayEx6[index1];
+    let valueIndex2 = newArrayEx6[index2];
+    newArrayEx6[index1] = valueIndex2;
+    newArrayEx6[index2] = valueIndex1;
+    getElement(
+      "#changePositionResult"
+    ).innerHTML = `Mảng sau khi đổi: <span class="text-indigo-600 font-bold">[ ${newArrayEx6} ]</span> `;
+  }
 };
 
 // 7. Sắp xếp tăng dần
 const sortNumber = () => {
   let newArray = [];
-  newArray = addNumberResult.sort(function (pt2, pt1) {
+  newArray = inputNumberArray.sort(function (pt2, pt1) {
     return pt2 - pt1;
   });
   getElement(
@@ -117,16 +139,32 @@ const sortNumber = () => {
 
 // 8. Tìm số nguyên tố đầu tiên
 const firstInteger = () => {
-  let firstInteger = -1;
-  for (i = 0; i < addNumberResult.length; i++) {
-    if (addNumberResult[i] % 1 === 0) {
-      firstInteger = addNumberResult[i];
-      break;
+  let arrayInteger = [];
+  for (i = 0; i < inputNumberArray.length; i++) {
+    if (inputNumberArray[i] % 1 === 0 && inputNumberArray[i] >= 2) {
+      arrayInteger.push(inputNumberArray[i]);
     }
   }
-  getElement(
-    "#firstIntegerResult"
-  ).innerHTML = `Số nguyên đầu tiên: <span class="text-indigo-600 font-bold">${firstInteger}</span> `;
+  if (arrayInteger.length === 0) {
+    getElement("#firstIntegerResult").innerHTML =
+      "Không có số nguyên tố trong mảng";
+  } else {
+    for (index = arrayInteger.length - 1; index >= 0; index--) {
+      for (y = 2; y < arrayInteger[index]; y++) {
+        if (arrayInteger[index] % y === 0) {
+          arrayInteger.splice(index, 1);
+        }
+      }
+    }
+    if (arrayInteger.length === 0) {
+      getElement("#firstIntegerResult").innerHTML =
+        "Không có số nguyên tố trong mảng";
+    } else {
+      getElement(
+        "#firstIntegerResult"
+      ).innerHTML = `Số nguyên đầu tiên: <span class="text-indigo-600 font-bold">${arrayInteger[0]}</span> `;
+    }
+  }
 };
 
 // 9. Đếm số nguyên
@@ -136,7 +174,7 @@ const addNumber = () => {
   let number = getElement("#numberEx9").value * 1;
   newArrayEx9.push(number);
   getElement(
-    "#addNumberResultEx9"
+    "#newArrayResultEx9"
   ).innerHTML = `<span class="text-indigo-600 font-bold">[ ${newArrayEx9} ]</span>`;
 };
 // B2: đếm số nguyên
@@ -156,10 +194,10 @@ const countInteger = () => {
 const compare = () => {
   let positiveNumber = 0;
   let negativeNumber = 0;
-  for (i = 0; i < addNumberResult.length; i++) {
-    if (addNumberResult[i] > 0) {
+  for (i = 0; i < inputNumberArray.length; i++) {
+    if (inputNumberArray[i] > 0) {
       positiveNumber++;
-    } else if (addNumberResult[i] < 0) {
+    } else if (inputNumberArray[i] < 0) {
       negativeNumber++;
     } else {
     }
