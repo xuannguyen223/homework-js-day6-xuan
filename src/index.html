@@ -17,7 +17,8 @@
         <h1>Tạo mảng</h1>
         <p class="text-indigo-600 text-lg my-3">
           <b>Hướng dẫn:</b> Có thể nhập từng số n hoặc nhập nhiều số cùng lúc
-          (cách nhau bằng dấu phẩy). Ví dụ: 4,5,6.7,7,-9...
+          (cách nhau bằng dấu phẩy) và không được có khoảng trắng. Ví dụ:
+          4,5,6.7,7,-9...
         </p>
         <label for="">Nhập số n</label>
         <input
@@ -361,6 +362,7 @@
             aria-labelledby="accordion-color-heading-7"
           >
             <div class="contentDecor">
+              <p>Hệ thống sẽ in ra mảng mới, không ảnh hưởng đến mảng gốc</p>
               <button class="btn2" onclick="sortNumber()">Sắp xếp</button>
               <p class="showResult">👉 <span id="sortNumberResult"></span></p>
             </div>
@@ -405,7 +407,7 @@
                 Tìm số nguyên tố đầu tiên trong mảng (số nguyên tố là số chỉ
                 chia hết cho 1 và chính nó).
               </p>
-              <button class="btn2" onclick="firstInteger()">
+              <button class="btn2" onclick="firstPrimeNumber()">
                 Tìm số nguyên tố
               </button>
               <p class="showResult">👉 <span id="firstIntegerResult"></span></p>

@@ -19,7 +19,7 @@ const handleAddNumber = () => {
   if (!REGEX_NUMBER.test(numberString)) {
     getElement(
       "#inputNumberArrayResult"
-    ).innerHTML = `<span class="text-red-500 font-bold">Nội dung bạn nhập không phải là số.Vui lòng xem hướng dẫn và nhập lại!</span>`;
+    ).innerHTML = `<span class="text-red-500 font-bold">Nội dung bạn nhập chưa đúng.Vui lòng xem hướng dẫn và nhập lại!</span>`;
   } else {
     let numberArray = numberString.split(",").map(Number);
     inputNumberArray = inputNumberArray.concat(numberArray);
@@ -128,42 +128,41 @@ const changePosition = () => {
 
 // 7. Sắp xếp tăng dần
 const sortNumber = () => {
-  let newArray = [];
-  newArray = inputNumberArray.sort(function (pt2, pt1) {
+  let newArrayEx7 = [...inputNumberArray];
+  newArrayEx7 = newArrayEx7.sort(function (pt2, pt1) {
     return pt2 - pt1;
   });
   getElement(
     "#sortNumberResult"
-  ).innerHTML = `Mảng sau khi sắp xếp: <span class="text-indigo-600 font-bold">[ ${newArray} ]</span> `;
+  ).innerHTML = `Mảng sau khi sắp xếp: <span class="text-indigo-600 font-bold">[ ${newArrayEx7} ]</span> `;
 };
 
 // 8. Tìm số nguyên tố đầu tiên
-const firstInteger = () => {
-  let arrayInteger = [];
+const firstPrimeNumber = () => {
+  let containPrimeNumber = false;
   for (i = 0; i < inputNumberArray.length; i++) {
-    if (inputNumberArray[i] % 1 === 0 && inputNumberArray[i] >= 2) {
-      arrayInteger.push(inputNumberArray[i]);
+    if (inputNumberArray[i] % 1 !== 0 || inputNumberArray[i] < 2) {
+      // dùng continue để skip qua phần tử ko phải số nguyên tố, check đến phần tử tiếp theo
+      continue;
     }
-  }
-  if (arrayInteger.length === 0) {
-    getElement("#firstIntegerResult").innerHTML =
-      "Không có số nguyên tố trong mảng";
-  } else {
-    for (index = arrayInteger.length - 1; index >= 0; index--) {
-      for (y = 2; y < arrayInteger[index]; y++) {
-        if (arrayInteger[index] % y === 0) {
-          arrayInteger.splice(index, 1);
-        }
+    let isPrimeNumber = true;
+    for (y = 2; y < inputNumberArray[i]; y++) {
+      if (inputNumberArray[i] % y === 0) {
+        isPrimeNumber = false;
+        break;
       }
     }
-    if (arrayInteger.length === 0) {
-      getElement("#firstIntegerResult").innerHTML =
-        "Không có số nguyên tố trong mảng";
-    } else {
+    if (isPrimeNumber) {
       getElement(
         "#firstIntegerResult"
-      ).innerHTML = `Số nguyên đầu tiên: <span class="text-indigo-600 font-bold">${arrayInteger[0]}</span> `;
+      ).innerHTML = `Số nguyên tố đầu tiên trong mảng: <span class="text-indigo-600 font-bold">${inputNumberArray[i]}</span> `;
+      containPrimeNumber = true;
+      break;
     }
+  }
+  if (!containPrimeNumber) {
+    getElement("#firstIntegerResult").innerHTML =
+      "Không có số nguyên tố trong mảng";
   }
 };
 
